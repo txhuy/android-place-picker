@@ -54,7 +54,7 @@ public class PlaceDetail implements Parcelable {
     }
 
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<PlaceDetail> CREATOR = new Parcelable.Creator<PlaceDetail>() {
+    public static final Creator<PlaceDetail> CREATOR = new Creator<PlaceDetail>() {
         @Override
         public PlaceDetail createFromParcel(Parcel in) {
             return new PlaceDetail(in);

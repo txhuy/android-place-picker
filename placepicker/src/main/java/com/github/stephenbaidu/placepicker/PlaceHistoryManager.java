@@ -15,8 +15,8 @@ public class PlaceHistoryManager {
 
     private static PlaceHistoryManager instance = null;
 
-    private final int RECENT_HISTORY_SIZE = 3;
-    private final int HISTORY_SIZE = 10;
+    private final int RECENT_HISTORY_SIZE = 4;
+    private final int HISTORY_SIZE = 4;
 
     private Context context;
 
@@ -75,9 +75,9 @@ public class PlaceHistoryManager {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this.context);
 
         if(placeInfo != null) {
-            sp.edit().putString("pref_place_picker_history_place_id_" + Integer.toString(index), placeInfo.placeId).commit();
-            sp.edit().putString("pref_place_picker_history_name_" + Integer.toString(index), placeInfo.name).commit();
-            sp.edit().putString("pref_place_picker_history_description_" + Integer.toString(index), placeInfo.description).commit();
+            sp.edit().putString("pref_place_picker_history_place_id_" + Integer.toString(index), placeInfo.placeId).apply();
+            sp.edit().putString("pref_place_picker_history_name_" + Integer.toString(index), placeInfo.name).apply();
+            sp.edit().putString("pref_place_picker_history_description_" + Integer.toString(index), placeInfo.description).apply();
         }
     }
 
@@ -143,9 +143,9 @@ public class PlaceHistoryManager {
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this.context);
 
             // Clear values
-            sp.edit().putString("pref_place_picker_history_place_id_" + Integer.toString(index), "").commit();
-            sp.edit().putString("pref_place_picker_history_name_" + Integer.toString(index), "").commit();
-            sp.edit().putString("pref_place_picker_history_description_" + Integer.toString(index), "").commit();
+            sp.edit().putString("pref_place_picker_history_place_id_" + Integer.toString(index), "").apply();
+            sp.edit().putString("pref_place_picker_history_name_" + Integer.toString(index), "").apply();
+            sp.edit().putString("pref_place_picker_history_description_" + Integer.toString(index), "").apply();
         } else {
             putHistoryRecord(nextRecord, index);
             removeFromHistory(index + 1);
@@ -161,7 +161,7 @@ public class PlaceHistoryManager {
         }
 
         historyRecords = historyRecords.subList(0, subListEndIndex);
-        historyRecords.add(new PlaceInfo("MORE FROM RECENT HISTORY"));
+//        historyRecords.add(new PlaceInfo("MORE FROM RECENT HISTORY"));
 
         return historyRecords;
     }

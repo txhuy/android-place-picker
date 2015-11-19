@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Place Picker</string>
+    <string name="place_picker_search_hint">Tìm địa điểm...</string>
+    <string name="place_picker_search_label">Tìm</string>
+    <string name="recent_searches">Địa điểm vừa tìm</string>
+    <string name="search_results">Kết quả tìm kiếm</string>
+</resources>

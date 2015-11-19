@@ -3,6 +3,8 @@
 
     <string name="place_picker_search_label">Search</string>
     <string name="place_picker_search_hint">Search place...</string>
-    <string name="title_activity_recent_searches">Recent Searches</string>
-    <string name="more_recent_history_text">MORE FROM RECENT HISTORY</string>
+    <string name="title_activity_recent_searches" translatable="false">Recent Searches</string>
+    <string name="more_recent_history_text" translatable="false">MORE FROM RECENT HISTORY</string>
+    <string name="recent_searches">Recent searches</string>
+    <string name="search_results">Search results</string>
 </resources>

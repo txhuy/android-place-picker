@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class PlacePicker extends Activity {
@@ -63,6 +65,8 @@ public class PlacePicker extends Activity {
         suggestionsCard = (CardView) findViewById(R.id.suggestions_card);
         suggestionsCard.setVisibility(View.GONE);
         historyCard = (CardView) findViewById(R.id.history_card);
+        if (placeHistoryManager.getHistoryRecords().size() == 0)
+            historyCard.setVisibility(View.GONE);
 
         suggestionsAdapter = new PlaceInfoAdapter(this, R.drawable.ic_place_marker);
         historyAdapter = new PlaceInfoAdapter(this, R.drawable.ic_place_history);
@@ -74,8 +78,12 @@ public class PlacePicker extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 PlaceInfo placeInfo = (PlaceInfo) parent.getItemAtPosition(position);
                 placeHistoryManager.updateHistory(placeInfo);
-                PlaceDetail placeDetail = new PlaceDetail(placeInfo.placeId, placeInfo.getDescription(), 0.0, 0.0);
-                sendResult(placeDetail);
+                fetchDetails(getIntent().getStringExtra(PARAM_API_KEY), placeInfo.placeId, new OnDetailFetched() {
+                    @Override
+                    public void completed(PlaceDetail placeInfoDetail) {
+                        sendResult(placeInfoDetail);
+                    }
+                });
             }
         });
 
@@ -86,41 +94,58 @@ public class PlacePicker extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 PlaceInfo placeInfo = (PlaceInfo) parent.getItemAtPosition(position);
-                String moreHistoryText = getResources().getString(R.string.more_recent_history_text);
-                if(placeInfo.name.equals(moreHistoryText)) {
-                    Intent intent = new Intent(getApplicationContext(), RecentSearchesActivity.class);
-
-                    startActivityForResult(intent, PlacePicker.REQUEST_CODE_RECENT_SEARCHES);
-                } else {
-                    placeHistoryManager.updateHistory(placeInfo);
-                    PlaceDetail placeDetail = new PlaceDetail(placeInfo.placeId, placeInfo.getDescription(), 0.0, 0.0);
-                    sendResult(placeDetail);
-                }
+//                String moreHistoryText = getResources().getString(R.string.more_recent_history_text);
+//                if(placeInfo.name.equals(moreHistoryText)) {
+//                    Intent intent = new Intent(getApplicationContext(), RecentSearchesActivity.class);
+//
+//                    startActivityForResult(intent, PlacePicker.REQUEST_CODE_RECENT_SEARCHES);
+//                } else {
+                placeHistoryManager.updateHistory(placeInfo);
+                fetchDetails(getIntent().getStringExtra(PARAM_API_KEY), placeInfo.placeId, new OnDetailFetched() {
+                    @Override
+                    public void completed(PlaceDetail placeInfoDetail) {
+                        sendResult(placeInfoDetail);
+                    }
+                });
+//                }
             }
         });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            private Timer timer = new Timer();
+            private final long DELAY = 500;
+
             @Override
+
             public boolean onQueryTextSubmit(String s) {
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String query) {
+            public boolean onQueryTextChange(final String query) {
                 if (query.length() < 2) return false;
-                String apiKey = getIntent().getStringExtra(PARAM_API_KEY);
-                String extraQuery = getIntent().getStringExtra(PARAM_EXTRA_QUERY);
-                PlaceApiRequest.autocomplete(apiKey, extraQuery, query, new AutocompleteTask.OnTaskCompleted() {
+
+                timer.cancel();
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
                     @Override
-                    public void onTaskCompleted(List<PlaceInfo> resultList) {
-                        if (resultList == null || resultList.isEmpty()) {
-                            suggestionsCard.setVisibility(View.GONE);
-                        } else {
-                            suggestionsAdapter.updateList(resultList);
-                            suggestionsCard.setVisibility(View.VISIBLE);
-                        }
+                    public void run() {
+                        String apiKey = getIntent().getStringExtra(PARAM_API_KEY);
+                        String extraQuery = getIntent().getStringExtra(PARAM_EXTRA_QUERY);
+                        PlaceApiRequest.autocomplete(apiKey, extraQuery, query, new AutocompleteTask.OnTaskCompleted() {
+                            @Override
+                            public void onTaskCompleted(List<PlaceInfo> resultList) {
+                                if (resultList == null || resultList.isEmpty()) {
+                                    suggestionsCard.setVisibility(View.GONE);
+                                } else {
+                                    suggestionsAdapter.updateList(resultList);
+                                    suggestionsCard.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        });
                     }
-                });
+                }, DELAY);
 
                 return true;
             }
