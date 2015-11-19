@@ -2,11 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "2"
+version = "2.0"
 group = "com.github.stephenbaidu"
 
-def siteUrl = 'https://github.com/stephenbaidu/android-place-picker'
-def gitUrl = 'https://github.com/stephenbaidu/android-place-picker.git'
+def siteUrl = 'https://github.com/txhuy/android-place-picker'
+def gitUrl = 'https://github.com/txhuy/android-place-picker.git'
 
 ext {
     PUBLISH_GROUP_ID = group
