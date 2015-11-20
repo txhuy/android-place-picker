@@ -1,4 +1,4 @@
-package com.github.stephenbaidu.placepicker;
+package com.github.txhuy.placepicker;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;

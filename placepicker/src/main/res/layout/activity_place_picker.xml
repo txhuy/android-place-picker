@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="10dp"
     android:background="@color/background_color"
-    tools:context="com.github.stephenbaidu.placepicker.PlacePicker">
+    tools:context="com.github.txhuy.placepicker.PlacePicker">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/search_bar"

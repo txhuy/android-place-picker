@@ -1,4 +1,4 @@
-package com.github.stephenbaidu.placepicker;
+package com.github.txhuy.placepicker;
 
 /**
  * Created by stephen on 3/1/15.

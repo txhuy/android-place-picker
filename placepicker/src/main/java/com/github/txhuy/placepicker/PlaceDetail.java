@@ -1,4 +1,4 @@
-package com.github.stephenbaidu.placepicker;
+package com.github.txhuy.placepicker;
 
 import android.os.Parcel;
 import android.os.Parcelable;

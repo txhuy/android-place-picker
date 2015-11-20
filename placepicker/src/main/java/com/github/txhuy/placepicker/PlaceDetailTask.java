@@ -1,4 +1,4 @@
-package com.github.stephenbaidu.placepicker;
+package com.github.txhuy.placepicker;
 
 import android.os.AsyncTask;
 import android.util.Log;

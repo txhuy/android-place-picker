@@ -12,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.stephenbaidu.androidplacepicker.R;
-import com.github.stephenbaidu.placepicker.PlaceDetail;
-import com.github.stephenbaidu.placepicker.PlacePicker;
+import com.github.txhuy.placepicker.PlaceDetail;
+import com.github.txhuy.placepicker.PlacePicker;
 
 
 public class MainActivity extends ActionBarActivity {
