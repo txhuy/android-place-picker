@@ -52,36 +52,6 @@ bintray {
     }
 }
 
-install {
-    repositories.mavenInstaller {
-        pom {
-            project {
-                packaging 'aar'
-                name 'Android PlacePicker similar to that of Google Maps\' location search'
-                url siteUrl
-                licenses {
-                    license {
-                        name 'The MIT License'
-                        url 'http://opensource.org/licenses/MIT'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'stephenbaidu'
-                        name 'Stephen Baidu'
-                        email 'stephenbaidu@gmail.com'
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-
-                }
-            }
-        }
-    }
-}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
